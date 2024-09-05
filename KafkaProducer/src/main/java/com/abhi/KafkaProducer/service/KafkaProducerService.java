@@ -10,7 +10,7 @@ public class KafkaProducerService {
     @Autowired
     KafkaTemplate<String, String> kafkaTemplate;
 
-    public void sendMessage(String topic, String data) {
-        kafkaTemplate.send(topic, data);
+    public void sendMessage(String topic, String key, String data) {
+        kafkaTemplate.send(topic, key, data);
     }
 }
