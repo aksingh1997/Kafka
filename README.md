@@ -23,3 +23,6 @@ See in code
         return (val % (cluster.partitionCountForTopic(topic))); // doing modulo after hashing with partition count
     }
     ```
+* Provide the details of this config class that implements Partitioner in application.properties.
+* Now sending messages using KafkaTemplate looks like
+  > kafkaTemplate.send(topic, key, data);
