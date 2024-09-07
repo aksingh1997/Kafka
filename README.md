@@ -15,8 +15,9 @@
 * Also we might be interested in sending messages to particular partition only. How it works is we need to provide  a key, that key is hashed to range of (0 - n-1)
 if we have n partitions. Here we need to provide hashing algorithm. To do so, one need to implement Partioner class and override the partition method.
 See in code
+
     ``` java
-    >  @Override
+    @Override
     public int partition(String topic, Object key, byte[] bytes, Object o1, byte[] bytes1, Cluster cluster) {
         int val = AppConstants.valueOf((String)key).getCode(); // Our hashing algo, could be anything. The key is same which we passed during kafkaTemplate.send()
         return (val % (cluster.partitionCountForTopic(topic))); // doing modulo after hashing with partition count
