@@ -26,3 +26,12 @@ See in code
 * Provide the details of this config class that implements Partitioner in application.properties.
 * Now sending messages using KafkaTemplate looks like
   > kafkaTemplate.send(topic, key, data);
+
+## Kafka Consumer settings -
+* Using Kafka Consumer is comparatively simpler, we need to decide before hand how many consumer groups we need. And inside each consumer group how many consumer we need.
+* As explained in Kafka Producer segment, we can provide our configurations using Configuration class or application.properties. Its better to go with the second approach. Its cleaner and simple to understand.
+* To listen to a topic, we need to use @KafkaListener annotation over a method which takes a input.
+  - If we are not using any paritions, we can use following snippet -
+    > @KafkaListener(topics="TopicA", groupId = "ConsumerGroup1")
+  - If we using partitions and want to listen to a particular partition messages only -
+    >  @KafkaListener(topicPartitions = @TopicPartition(topic = "Cities", partitions = {"0"}), groupId = "ConsumerGroup1")
