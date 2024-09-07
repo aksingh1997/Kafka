@@ -12,4 +12,11 @@
 * If we are not bothered about partitions yet, we can simply send our messages using following code. This will simply send the data to given topic and will create default number of partitions on its own.
   > kafkaTemplate.send(topic, data);
 * However if we want control till the partition level, we should be creating topics ahead to avoid errors. Create topic using class - NewTopic, provide the necessary details like Topic name, partition count, replication count, etc. and set is as @Bean. This will create topic during startup.
-* Also we might be interested in sending messages to particular partition only. How it works is we need to provide  
+* Also we might be interested in sending messages to particular partition only. How it works is we need to provide  a key, that key is hashed to range of (0 - n-1)
+if we have n partitions. Here we need to provide hashing algorithm. To do so, one need to implement Partioner class and override the partition method.
+See in code
+    >  @Override
+    public int partition(String topic, Object key, byte[] bytes, Object o1, byte[] bytes1, Cluster cluster) {
+        int val = AppConstants.valueOf((String)key).getCode(); // Our hashing algo, could be anything. The key is same which we passed during kafkaTemplate.send()
+        return (val % (cluster.partitionCountForTopic(topic))); // doing modulo after hashing with partition count
+    }
