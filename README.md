@@ -35,3 +35,12 @@ See in code
     > @KafkaListener(topics="TopicA", groupId = "ConsumerGroup1")
   - If we are using partitions and want to listen to a particular partition messages only -
     >  @KafkaListener(topicPartitions = @TopicPartition(topic = "Cities", partitions = {"0"}), groupId = "ConsumerGroup1")
+
+## Kafka asynchronous message sending
+* We can also make use of ProducerConfig class to manage producer configuration like timeoout, retries, etc and send this messages using one of the implementations of Future.
+* Using Future, one can send a lot of incoming data from producers asynchronously to different partitions which will increase its troughput.
+* On cosumer side, we already receive messages in asynchronous way and we dont need extra configuration, since all consumers in a consumer group read different partitions from a Topic simultaneously.
+
+* For reference we can use below project too -
+  > https://github.com/dilipsundarraj1/kafka-for-developers-using-spring-boot/tree/main
+  
